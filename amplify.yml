@@ -3,17 +3,11 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Installs packages without forcing a lockfile check
-        - npm install
+        - echo "Skipping npm install for static site"
     build:
       commands:
-        # Compiles the production build
-        - npm run build
+        - echo "Skipping build for static site"
   artifacts:
-    # Change 'dist' to 'build' if using Create React App, or '.next' if Next.js
-    baseDirectory: dist
+    baseDirectory: /
     files:
       - '**/*'
-  cache:
-    paths:
-      - 'node_modules/**/*'
