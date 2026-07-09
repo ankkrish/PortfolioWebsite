@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankit Krishna | Software Engineer</title>
+    
+    <!-- Loading Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBg: '#0b1121',
+                        cardBg: '#1e293b',
+                        primary: '#3b82f6', // Blue
+                        secondary: '#8b5cf6', // Purple
+                        accent: '#0ea5e9' // Sky
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #0b1121;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1121;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Gradient Text Utility */
+        .text-gradient {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hover-card {
+            transition: all 0.3s ease;
+        }
+        .hover-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.04);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        /* Glow effect */
+        .glow-bg {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <nav class="fixed w-full z-50 glass border-b border-white/5 top-0 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-2xl font-bold tracking-tighter">
+                        <span class="text-white">Ankit</span><span class="text-gradient"> Krishna</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">About</a>
+                    <a href="#skills" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Skills</a>
+                    <a href="#projects" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Projects</a>
+                    <a href="#contact" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Contact</a>
+                    <a href="https://github.com/ankkrish" target="_blank" class="px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm font-medium transition-all flex items-center gap-2">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/5 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#about" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/5">About</a>
+                <a href="#skills" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/5">Skills</a>
+                <a href="#projects" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/5">Projects</a>
+                <a href="#contact" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/5">Contact</a>
+                <a href="https://github.com/ankkrish" target="_blank" class="block px-3 py-3 mt-4 rounded-md text-base font-medium bg-primary/20 text-primary text-center">
+                    <i class="fab fa-github mr-2"></i> View GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center">
+            <div class="glow-bg top-20 left-10"></div>
+            <div class="glow-bg bottom-10 right-20" style="background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-4xl mx-auto">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 mb-8 fade-in-up">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                        Available for new opportunities
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 fade-in-up" style="transition-delay: 100ms;">
+                        Hi, I'm <br class="md:hidden" />
+                        <span class="text-gradient">Ankit Krishna</span>
+                    </h1>
+                    
+                    <p class="mt-4 text-xl md:text-2xl text-gray-400 font-light mb-10 fade-in-up" style="transition-delay: 200ms;">
+                        Software Engineer & Problem Solver crafting robust applications and scalable systems.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 fade-in-up" style="transition-delay: 300ms;">
+                        <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold shadow-lg hover:shadow-primary/30 transition-all hover:-translate-y-1">
+                            View My Work
+                        </a>
+                        <button onclick="copyEmail()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-cardBg border border-white/10 text-white font-semibold hover:bg-white/5 transition-all flex items-center justify-center gap-2">
+                            <i class="far fa-envelope"></i> Email Me
+                        </button>
+                        <button onclick="copyPhone()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-cardBg border border-white/10 text-white font-semibold hover:bg-white/5 transition-all flex items-center justify-center gap-2" title="Copy Phone Number">
+                            <i class="fas fa-copy text-green-400"></i> Phone Number
+                        </button>
+                    </div>
+
+                    <div class="mt-16 flex flex-wrap justify-center gap-4 sm:gap-6 fade-in-up" style="transition-delay: 400ms;">
+                        <!-- GitHub -->
+                        <a href="https://github.com/ankkrish" target="_blank" title="GitHub" class="w-12 h-12 rounded-full bg-cardBg border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all hover:-translate-y-1">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/ankit-krishna" target="_blank" title="LinkedIn" class="w-12 h-12 rounded-full bg-cardBg border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0A66C2] hover:border-[#0A66C2] hover:shadow-[0_0_15px_rgba(10,102,194,0.4)] transition-all hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <!-- LeetCode -->
+                        <a href="https://leetcode.com/u/ankkrish" target="_blank" title="LeetCode" class="w-12 h-12 rounded-full bg-cardBg border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#FFA116] hover:border-[#FFA116] hover:shadow-[0_0_15px_rgba(255,161,22,0.4)] transition-all hover:-translate-y-1">
+                            <i class="fas fa-code text-xl"></i>
+                        </a>
+                        <!-- HackerRank -->
+                        <a href="https://hackerrank.com/profile/ankit_krishna" target="_blank" title="HackerRank" class="w-12 h-12 rounded-full bg-cardBg border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00EA64] hover:border-[#00EA64] hover:shadow-[0_0_15px_rgba(0,234,100,0.4)] transition-all hover:-translate-y-1">
+                            <i class="fab fa-hackerrank text-xl"></i>
+                        </a>
+                        <!-- CodeChef -->
+                        <a href="https://www.codechef.com/users/ankkrish" target="_blank" title="CodeChef" class="w-12 h-12 rounded-full bg-cardBg border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#5B4638] hover:border-[#5B4638] hover:shadow-[0_0_15px_rgba(91,70,56,0.4)] transition-all hover:-translate-y-1">
+                            <i class="fas fa-laptop-code text-xl"></i>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://instagram.com/ankkrish" target="_blank" title="Instagram" class="w-12 h-12 rounded-full bg-cardBg border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#E1306C] hover:border-[#E1306C] hover:shadow-[0_0_15px_rgba(225,48,108,0.4)] transition-all hover:-translate-y-1">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/+918969808842" target="_blank" title="WhatsApp" class="w-12 h-12 rounded-full bg-cardBg border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#25D366] hover:border-[#25D366] hover:shadow-[0_0_15px_rgba(37,211,102,0.4)] transition-all hover:-translate-y-1">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <a href="#about" class="text-gray-500 hover:text-white transition-colors">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 relative border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    <div class="order-2 lg:order-1 fade-in-up">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">About <span class="text-primary">Me</span></h2>
+                        <div class="space-y-4 text-gray-400 text-lg leading-relaxed">
+                            <p>
+                                Welcome to my digital space! I am a passionate software developer deeply interested in building efficient, scalable, and robust solutions. I thrive in challenging environments where I can solve complex problems and contribute to innovative projects.
+                            </p>
+                            <p>
+                                My journey in tech is driven by a constant desire to learn and adapt. Whether it's architecting backend systems, crafting clean user interfaces, or optimizing databases, I approach every task with a focus on code quality and performance.
+                            </p>
+                            <p>
+                                When I'm not coding, you can find me exploring new technologies, contributing to open-source (like my work on calculator applications), or thinking about the next big project to build.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-xl bg-cardBg border border-white/5">
+                                <h3 class="text-primary text-2xl font-bold mb-1">3+</h3>
+                                <p class="text-sm text-gray-400">Years Coding</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-cardBg border border-white/5">
+                                <h3 class="text-secondary text-2xl font-bold mb-1">15+</h3>
+                                <p class="text-sm text-gray-400">Projects Built</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-cardBg border border-white/5 hidden sm:block">
+                                <h3 class="text-accent text-2xl font-bold mb-1">100%</h3>
+                                <p class="text-sm text-gray-400">Dedication</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-1 lg:order-2 flex justify-center fade-in-up">
+                        <div class="relative w-72 h-72 md:w-96 md:h-96">
+                            <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-secondary blur-2xl opacity-20 animate-pulse"></div>
+                            
+                            <!-- REPLACE 'YOUR_IMAGE_FILE.jpg' BELOW WITH THE NAME OF YOUR ATTACHED IMAGE -->
+                            <img src="Gemini_Generated_Image__2.png" 
+                                 onerror="this.src='https://placehold.co/600x600/1e293b/3b82f6?text=AK'" 
+                                 alt="Ankit Krishna" 
+                                 class="relative rounded-2xl w-full h-full object-cover shadow-2xl border border-white/10 rotate-3 hover:rotate-0 transition-transform duration-500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-24 relative bg-cardBg/30 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Technical <span class="text-secondary">Skills</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Technologies and tools I work with to bring ideas to life.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Languages -->
+                    <div class="bg-cardBg rounded-2xl p-8 border border-white/5 hover-card fade-in-up" style="transition-delay: 100ms;">
+                        <div class="w-12 h-12 rounded-lg bg-primary/20 text-primary flex items-center justify-center text-2xl mb-6">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Languages</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">Java</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">Python</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">JavaScript</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">C++</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">SQL</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">HTML/CSS</span>
+                        </div>
+                    </div>
+
+                    <!-- Frameworks & Libs -->
+                    <div class="bg-cardBg rounded-2xl p-8 border border-white/5 hover-card fade-in-up" style="transition-delay: 200ms;">
+                        <div class="w-12 h-12 rounded-lg bg-secondary/20 text-secondary flex items-center justify-center text-2xl mb-6">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Frameworks</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">Spring Boot</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">React.js</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">Tailwind CSS</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">Node.js</span>
+                        </div>
+                    </div>
+
+                    <!-- Tools & Tech -->
+                    <div class="bg-cardBg rounded-2xl p-8 border border-white/5 hover-card fade-in-up" style="transition-delay: 300ms;">
+                        <div class="w-12 h-12 rounded-lg bg-accent/20 text-accent flex items-center justify-center text-2xl mb-6">
+                            <i class="fas fa-wrench"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Tools</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">Git/GitHub</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">Docker</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">CI/CD</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">Linux</span>
+                            <span class="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-gray-300">Postman</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-24 relative border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured <span class="text-accent">Projects</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Here are a few things I've built recently.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project 1 -->
+                    <div class="bg-cardBg rounded-2xl overflow-hidden border border-white/5 hover-card flex flex-col h-full fade-in-up" style="transition-delay: 100ms;">
+                        <div class="h-48 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-all z-10"></div>
+                            <img src="https://placehold.co/600x400/1e293b/3b82f6?text=Java+CLI+System" alt="Parking Lot System" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-xl font-bold mb-2">Parking Lot Management</h3>
+                            <p class="text-gray-400 text-sm mb-4 flex-grow">A robust Command Line Interface (CLI) application built in Java to simulate and manage operations of a smart parking lot system efficiently.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded">Java</span>
+                                <span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded">OOP</span>
+                                <span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded">CLI</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="https://github.com/ankkrish/Java-CLI-Parking-Lot-Management-System" target="_blank" class="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
+                                    <i class="fab fa-github"></i> Source Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="bg-cardBg rounded-2xl overflow-hidden border border-white/5 hover-card flex flex-col h-full fade-in-up" style="transition-delay: 200ms;">
+                        <div class="h-48 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-all z-10"></div>
+                            <img src="https://placehold.co/600x400/1e293b/8b5cf6?text=Smart+Calculator" alt="Calculator App" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-xl font-bold mb-2">Advanced Calculator UI</h3>
+                            <p class="text-gray-400 text-sm mb-4 flex-grow">Open source contribution and enhancement of calculator interface themes and functionalities, focusing on color structures and UX.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs text-secondary bg-secondary/10 px-2 py-1 rounded">Java</span>
+                                <span class="text-xs text-secondary bg-secondary/10 px-2 py-1 rounded">Swing</span>
+                                <span class="text-xs text-secondary bg-secondary/10 px-2 py-1 rounded">Open Source</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="https://github.com/ankkrish" target="_blank" class="text-sm font-medium hover:text-secondary transition-colors flex items-center gap-1">
+                                    <i class="fab fa-github"></i> View Profile
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="bg-cardBg rounded-2xl overflow-hidden border border-white/5 hover-card flex flex-col h-full fade-in-up" style="transition-delay: 300ms;">
+                        <div class="h-48 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-all z-10"></div>
+                            <img src="https://placehold.co/600x400/1e293b/0ea5e9?text=Portfolio+Web" alt="Portfolio" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-xl font-bold mb-2">Modern Portfolio</h3>
+                            <p class="text-gray-400 text-sm mb-4 flex-grow">A sleek, fully responsive developer portfolio built strictly using HTML, Tailwind CSS, and vanilla JavaScript for high performance.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs text-accent bg-accent/10 px-2 py-1 rounded">HTML5</span>
+                                <span class="text-xs text-accent bg-accent/10 px-2 py-1 rounded">TailwindCSS</span>
+                                <span class="text-xs text-accent bg-accent/10 px-2 py-1 rounded">JS</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="#" class="text-sm font-medium hover:text-accent transition-colors flex items-center gap-1">
+                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 relative bg-cardBg/30 border-t border-white/5">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Let's Work <span class="text-gradient">Together</span></h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open. Feel free to connect with me using the links above or through my social profiles!
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/5 py-8 text-center text-gray-500 text-sm bg-darkBg">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; <span id="year"></span> Ankit Krishna. All rights reserved.</p>
+            
+            <div class="flex gap-4 text-lg">
+                <a href="https://github.com/ankkrish" target="_blank" title="GitHub" class="hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/ankkrish" target="_blank" title="LinkedIn" class="hover:text-[#0A66C2] transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="https://leetcode.com/u/ankkrish" target="_blank" title="LeetCode" class="hover:text-[#FFA116] transition-colors"><i class="fas fa-code"></i></a>
+                <a href="https://hackerrank.com/profile/ankkrish" target="_blank" title="HackerRank" class="hover:text-[#00EA64] transition-colors"><i class="fab fa-hackerrank"></i></a>
+                <a href="https://www.codechef.com/users/ankkrish" target="_blank" title="CodeChef" class="hover:text-[#5B4638] transition-colors"><i class="fas fa-laptop-code"></i></a>
+                <a href="https://instagram.com/ankkrish" target="_blank" title="Instagram" class="hover:text-[#E1306C] transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/918969808842" target="_blank" title="WhatsApp" class="hover:text-[#25D366] transition-colors"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn.querySelector('i');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            if(menu.classList.contains('hidden')){
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Close mobile menu on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg', 'bg-darkBg/90');
+                nav.classList.remove('glass');
+            } else {
+                nav.classList.remove('shadow-lg', 'bg-darkBg/90');
+                nav.classList.add('glass');
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Stop observing once animated
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Custom Toast / Copy Email Function
+        function copyEmail() {
+            // Placeholder email - replace with actual
+            const email = "ankitkrishna8@gmail.com"; 
+            
+            // Create temporary textarea to copy
+            const temp = document.createElement("textarea");
+            temp.value = email;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+            
+            showToast("Email address copied to clipboard!");
+        }
+
+        function copyPhone() {
+            const phone = "+918969808842"; 
+            
+            // Create temporary textarea to copy
+            const temp = document.createElement("textarea");
+            temp.value = phone;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+            
+            showToast("Phone number copied to clipboard!");
+        }
+
+        // Custom Toast Notification instead of alert()
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-primary text-white px-6 py-3 rounded-lg shadow-xl transform transition-all duration-300 translate-y-full opacity-0 z-50 flex items-center gap-3';
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(toast);
+            
+            // Trigger animation in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-full', 'opacity-0');
+            }, 10);
+            
+            // Trigger animation out
+            setTimeout(() => {
+                toast.classList.add('translate-y-full', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
